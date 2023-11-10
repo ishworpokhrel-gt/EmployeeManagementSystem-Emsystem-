@@ -109,6 +109,10 @@ namespace EmployeeManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BasicSalary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Contact")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -122,41 +126,94 @@ namespace EmployeeManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Salary")
+                    b.Property<string>("NetSalary")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OverTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employeess");
 
                     b.HasData(
                         new
                         {
                             ID = 1,
                             Address = "Hetauda",
+                            BasicSalary = "15000",
                             Contact = "986550284",
                             Email = "pokhrelishwor97@gmail.com",
                             Name = "Ishwor pokhrel",
-                            Salary = "10000"
+                            NetSalary = "10000",
+                            OverTime = "1000"
                         },
                         new
                         {
                             ID = 2,
                             Address = "Rajbiraj",
+                            BasicSalary = "25000",
                             Contact = "98623423",
                             Email = "riyaz97@gmail.com",
                             Name = "Riyaz Ali",
-                            Salary = "15000"
+                            NetSalary = "20000",
+                            OverTime = "1500"
                         },
                         new
                         {
                             ID = 3,
                             Address = "Palpa",
+                            BasicSalary = "28000",
                             Contact = "9862523425",
                             Email = "sam97@gmail.com",
                             Name = "Samundra",
-                            Salary = "20000"
+                            NetSalary = "25000",
+                            OverTime = "2000"
+                        });
+                });
+
+            modelBuilder.Entity("EmployeeManagementSystem.Models.LeaveRequest", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AppliedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppliedDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FinalDecision")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("leaveFrom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("leaveToDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LeaveRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 4,
+                            AppliedBy = "Ishwor",
+                            AppliedDate = "november 2",
+                            FinalDecision = "Unverified",
+                            leaveFrom = "november 5",
+                            leaveToDate = "november 10"
                         });
                 });
 

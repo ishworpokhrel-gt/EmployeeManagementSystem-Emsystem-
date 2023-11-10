@@ -1,0 +1,102 @@
+﻿ @model Employee;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Salary Slip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #000;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .totals {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header row">
+             <div class="col-6 text-end">
+                <h2>Salary Slip</h2>
+             </div>
+            <div class="col-6 text-end">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-primary">BacK</a>
+            </div>
+ 
+        </div>
+        <table>
+            <tr>
+                <th>Employee Name:</th>
+                <td>@Model.Name</td>
+                <th>Employee ID:</th>
+                <td>@Model.ID</td>
+            </tr>
+            <tr>
+                <th>Month:</th>
+                <td>November 2023</td>
+                <th>Department:</th>
+                <td>Finance</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Earnings</th>
+                <th>Amount ($)</th>
+                <th>Deductions</th>
+                <th>Amount ($)</th>
+            </tr>
+            <tr>
+                <td>Basic Salary</td>
+                <td>@Model.BasicSalary</td>
+                <td>Taxes</td>
+                <td>1500</td>
+            </tr>
+            <tr>
+                <td>Overtime</td>
+                <td>@Model.OverTime</td>
+                <td>Insurance</td>
+                <td>500</td>
+            </tr>
+      
+        </table>
+        <table>
+            <tr class="totals">
+                <th>Net Salary:</th>
+                <td>@Model.NetSalary</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

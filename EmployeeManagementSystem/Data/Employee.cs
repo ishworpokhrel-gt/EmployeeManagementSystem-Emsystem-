@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeManagementSystem.Data
 {
-    [Table("Employees")]
+    [Table("Employeess")]
     public class Employee
     {
 
@@ -19,7 +20,11 @@ namespace EmployeeManagementSystem.Data
         [Required]
         [MaxLength(10)]
         public string Contact{ get; set; }
-        public string Salary { get; set; }
+        public string BasicSalary { get; set; }
+        public string? OverTime {  get; set; }
+        [Required]
+        [DisplayName("Net Salary")]
+        public string NetSalary { get; set; }
 
     }
 }

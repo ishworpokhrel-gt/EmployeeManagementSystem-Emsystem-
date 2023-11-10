@@ -12,9 +12,14 @@
         <div class="card-body">
             <div class="py-3">
                 <div class="row">
-                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
+                    <div class=" text-start col-6 pb-1">
                         <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
                             <small>Back to home</small>
+                        </a>
+                    </div>
+                    <div class="text-end col-6 pb-1">
+                        <a asp-action="Slip" asp-route-id="@Model.ID" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                            <small>Salary Slip</small>
                         </a>
                     </div>
                 </div>
@@ -25,31 +30,43 @@
                             <span class="badge">@Model.Name</span>
                         </div>
                         <div class="row text-center">
-                            <div class="p-1 col-3 bg-white border-bottom">
+                            <div class="p-1 col-2 bg-white border-bottom">
                                 <div class="text-dark text-opacity-50 fw-semibold">Email</div>
                             </div>
-                            <div class="p-1 col-3 bg-white border-bottom">
+                            <div class="p-1 col-2 bg-white border-bottom">
                                 <div class="text-dark text-opacity-50 fw-semibold">Contact</div>
                             </div>
-                            <div class="p-1 col-3 bg-white border-bottom">
+                            <div class="p-1 col-2 bg-white border-bottom">
                                 <div class="text-dark text-opacity-50 fw-semibold">Address</div>
                             </div>
-                            <div class="p-1 col-3 bg-white border-bottom">
-                                <div class="text-dark text-opacity-50 fw-semibold">Salary</div>
+                            <div class="p-1 col-2 bg-white border-bottom">
+                                <div class="text-dark text-opacity-50 fw-semibold">BasicSalary</div>
+                            </div>
+                            <div class="p-1 col-2 bg-white border-bottom">
+                                <div class="text-dark text-opacity-50 fw-semibold">Overtime</div>
+                            </div>
+                            <div class="p-1 col-2 bg-white border-bottom">
+                                <div class="text-dark text-opacity-50 fw-semibold">NetSalary</div>
                             </div>
                         </div>
                         <div class="row text-center ps-2">
-                            <div class="p-1 col-3 bg-white text-warning fw-bold">
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
                                 <div>@Model.Email</div>
                             </div>
-                            <div class="p-1 col-3 bg-white text-warning fw-bold">
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
                                 <div>@Model.Contact</div>
                             </div>
-                            <div class="p-1 col-3 bg-white text-warning fw-bold">
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
                                 <div>@Model.Address</div>
                             </div>
-                            <div class="p-1 col-3 bg-white text-warning fw-bold">
-                                <div>@Model.Salary</div>
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
+                                <div>@Model.BasicSalary</div>
+                            </div>
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
+                                <div>@Model.OverTime</div>
+                            </div>
+                            <div class="p-1 col-2 bg-white text-warning fw-bold">
+                                <div>@Model.NetSalary</div>
                             </div>
                         </div>
                     </div>

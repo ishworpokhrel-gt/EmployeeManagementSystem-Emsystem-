@@ -1,0 +1,64 @@
+﻿@model List<LeaveRequest>
+
+<table class="table table-striped table-bordered p-3">
+    <div class="row m-3">
+        <div class="col-12 m-2 p-2">
+            <h1>
+                Leave Request List
+            </h1>
+        </div>
+    </div>
+    <div class="m-2">
+    <thead>
+        <tr>
+            <th>
+                Applied By
+            </th>
+            <th>
+                Applied Date
+            </th>
+            <th>
+                leave From
+            </th>
+            <th>
+                Leave To Date
+            </th>
+            <th>
+                Final Decision
+            </th>
+            <th>
+                Decision
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var obj in Model)
+            {
+            <tr>
+                <td>
+                        @obj.AppliedBy
+                </td>
+                <td>
+                        @obj.AppliedDate
+                </td>
+                <td>
+                        @obj.leaveFrom
+                </td>
+                <td>
+                        @obj.leaveToDate
+                </td>
+                <td>
+                    @obj.FinalDecision
+                </td>
+                <td>
+                    
+                    <a asp-action="Approve" asp-controller="Category" asp-route-ID="@obj.ID" class="btn btn-info">Approve</a>
+                    <a asp-action="Reject" asp-controller="Category" asp-route-ID="@obj.ID" class="btn btn-danger">Reject</a>
+                    
+                </td>
+            </tr>
+            }
+    </tbody>
+
+    </div>
+</table>

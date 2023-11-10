@@ -1,0 +1,40 @@
+﻿@model LeaveRequest
+
+<form method="post" >
+    <div class=" container m-3">
+        
+        <div class="form-floating my-3">
+        <input asp-for="AppliedBy" class="form-control" placeholder="Date" />
+        <label asp-for="AppliedBy"></label>
+        <span asp-validation-for="AppliedBy"></span>
+        </div>
+
+        <div class="form-floating my-3">
+        <input asp-for="AppliedDate" class="form-control" placeholder="Date" />
+        <label asp-for="AppliedDate"></label>
+        <span asp-validation-for="AppliedDate"></span>
+        </div>
+
+        <div class="form-floating my-3">
+
+        <input asp-for="leaveFrom" class="form-control" placeholder="Date" />
+        <label asp-for="leaveFrom"></label>
+        <span asp-validation-for="leaveFrom"></span>
+        </div>
+
+        <div class="form-floating my-3">
+
+        <input asp-for="leaveToDate" class="form-control" placeholder="Date" />
+        <label asp-for="leaveToDate"></label>
+        <span asp-validation-for="leaveToDate"></span>
+        
+        </div>
+
+        <div class="btn-group form-control">
+            <button class="btn btn-primary form-control" type="submit">Submit</button>
+            <a asp-action="LeaveTable" asp-controller="Home" class="btn btn-light form-control"><--Back To List</a>
+
+        </div>
+    </div>
+
+</form>

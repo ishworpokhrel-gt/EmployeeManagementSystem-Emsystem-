@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class customizetable : Migration
+    public partial class addedtablesandseedings : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,8 +33,8 @@ namespace EmployeeManagementSystem.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    city = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    state = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    city = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    state = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -56,7 +56,7 @@ namespace EmployeeManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Employeess",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -64,11 +64,31 @@ namespace EmployeeManagementSystem.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Contact = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                    Contact = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    BasicSalary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OverTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NetSalary = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.ID);
+                    table.PrimaryKey("PK_Employeess", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LeaveRequests",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppliedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AppliedDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    leaveFrom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    leaveToDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FinalDecision = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LeaveRequests", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,8 +137,8 @@ namespace EmployeeManagementSystem.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -162,8 +182,8 @@ namespace EmployeeManagementSystem.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -178,14 +198,19 @@ namespace EmployeeManagementSystem.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "ID", "Address", "Contact", "Email", "Name" },
+                table: "Employeess",
+                columns: new[] { "ID", "Address", "BasicSalary", "Contact", "Email", "Name", "NetSalary", "OverTime" },
                 values: new object[,]
                 {
-                    { 1, "Hetauda", "986550284", "pokhrelishwor97@gmail.com", "Ishwor pokhrel" },
-                    { 2, "Rajbiraj", "98623423", "riyaz97@gmail.com", "Riyaz Ali" },
-                    { 3, "Palpa", "9862523425", "sam97@gmail.com", "Samundra" }
+                    { 1, "Hetauda", "15000", "986550284", "pokhrelishwor97@gmail.com", "Ishwor pokhrel", "10000", "1000" },
+                    { 2, "Rajbiraj", "25000", "98623423", "riyaz97@gmail.com", "Riyaz Ali", "20000", "1500" },
+                    { 3, "Palpa", "28000", "9862523425", "sam97@gmail.com", "Samundra", "25000", "2000" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "LeaveRequests",
+                columns: new[] { "ID", "AppliedBy", "AppliedDate", "FinalDecision", "leaveFrom", "leaveToDate" },
+                values: new object[] { 4, "Ishwor", "november 2", "Unverified", "november 5", "november 10" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -246,7 +271,10 @@ namespace EmployeeManagementSystem.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Employeess");
+
+            migrationBuilder.DropTable(
+                name: "LeaveRequests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

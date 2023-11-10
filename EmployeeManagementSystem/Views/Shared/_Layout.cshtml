@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EmployeeManagementSystem</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,16 +24,35 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("Accountant")) {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Admin"))
+                        
+                        @if (User.IsInRole("Employe"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Index">Content Manager</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="LeaveTable">Leave Request</a>
                             </li>
+                        }
+                       
+                            
+                        @if(User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Category" asp-action="LeaveDecide">Leave Table</a>
+                            </li>
+                        }
+                            
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="dropdown nav-item">
+                                <button class="btn nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Content Management
+                                </button>
+                                <ul class="dropdown-menu bg-white">
+                                    <li>
+                                        <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Employee Manager</a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

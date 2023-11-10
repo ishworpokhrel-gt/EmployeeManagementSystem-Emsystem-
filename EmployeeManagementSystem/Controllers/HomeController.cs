@@ -1,5 +1,6 @@
 using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,6 +17,7 @@ namespace WebApplication1.Controllers
             _db = db;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             List<Employee> Objofemp= _db.Employeess.ToList();
@@ -28,9 +30,37 @@ namespace WebApplication1.Controllers
             return View(obj);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Leave()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Leave(LeaveRequest request)
+        {
+            if (request == null)
+            {
+                return NotFound();
+            }
+            _db.Add(request);
+            _db.SaveChanges();
+            return RedirectToAction("LeaveTable");
+
+        }
+
+        public IActionResult LeaveTable()
+        {
+            List<LeaveRequest> req=_db.LeaveRequests.ToList();
+            return View(req);
+        }
+
+        public IActionResult Slip(int id)
+        {
+            Employee? emp = _db.Employeess.FirstOrDefault(u=>u.ID==id);
+            if (emp == null)
+            {
+                return BadRequest();
+            }
+            return View(emp);
         }
 
 
