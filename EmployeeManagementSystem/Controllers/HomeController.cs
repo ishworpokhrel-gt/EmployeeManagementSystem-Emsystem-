@@ -1,7 +1,7 @@
 using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 
@@ -11,22 +11,22 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _db;
-        public HomeController(ILogger<HomeController> logger,ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
             _db = db;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
-            List<Employee> Objofemp= _db.Employeess.ToList();
+            //List<Employee> Objofemp = _db.Employeess.ToList();
+            var Objofemp = _db.Employeess.FromSqlRaw("SELECT * FROM get_all_employees()").ToList();
             return View(Objofemp);
         }
 
         public IActionResult Details(int id)
         {
-            var obj= _db.Employeess.FirstOrDefault(a=>a.ID==id);
+            var obj = _db.Employeess.FirstOrDefault(a => a.Id == id);
             return View(obj);
         }
 
@@ -49,13 +49,13 @@ namespace WebApplication1.Controllers
 
         public IActionResult LeaveTable()
         {
-            List<LeaveRequest> req=_db.LeaveRequests.ToList();
+            List<LeaveRequest> req = _db.LeaveRequests.ToList();
             return View(req);
         }
 
         public IActionResult Slip(int id)
         {
-            Employee? emp = _db.Employeess.FirstOrDefault(u=>u.ID==id);
+            Employee? emp = _db.Employeess.FirstOrDefault(u => u.Id == id);
             if (emp == null)
             {
                 return BadRequest();

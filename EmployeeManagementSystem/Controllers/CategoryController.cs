@@ -2,29 +2,27 @@
 using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EmployeeManagement.Controllers
 {
-   
+
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
         {
             _db = db;
-         
+
         }
         [HttpGet]
         public IActionResult Index()
         {
             List<Employee> Objofcat = _db.Employeess.ToList();
             return View(Objofcat);
-            
+
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -32,8 +30,10 @@ namespace EmployeeManagement.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult Create(Employee emp) 
+
+        public IActionResult Create(Employee emp)
         {
+
             if (emp != null)
             {
                 _db.Employeess.Add(emp);
@@ -42,19 +42,18 @@ namespace EmployeeManagement.Controllers
                 return RedirectToAction("Index");
             }
             return NotFound();
-            
         }
         [HttpGet]
-        public IActionResult Edit(Employee emp , int id)
+        public IActionResult Edit(Employee emp, int id)
         {
-            var obj = _db.Employeess.FirstOrDefault(x => x.ID== id);
+            var obj = _db.Employeess.FirstOrDefault(x => x.Id == id);
             return View(obj);
         }
         [HttpPost]
         [ActionName("Edit")]
-        public IActionResult Edits(Employee emp, int id) 
-        { 
-            if(emp != null)
+        public IActionResult Edits(Employee emp, int id)
+        {
+            if (emp != null)
             {
                 _db.Employeess.Update(emp);
                 _db.SaveChanges();
@@ -67,18 +66,18 @@ namespace EmployeeManagement.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            if(id==0)
+            if (id == 0)
             {
                 return NotFound();
             }
-            var obj = _db.Employeess.FirstOrDefault(a=>a.ID == id);
+            var obj = _db.Employeess.FirstOrDefault(a => a.Id == id);
             return View(obj);
         }
         [HttpPost]
         [ActionName("Delete")]
-        public IActionResult delete( Employee emp)
+        public IActionResult delete(Employee emp)
         {
-            if(emp != null)
+            if (emp != null)
             {
                 _db.Employeess.Remove(emp);
                 _db.SaveChanges();
@@ -90,7 +89,7 @@ namespace EmployeeManagement.Controllers
         }
 
 
-        [Authorize(Roles =("Admin,Accountant"))]
+        [Authorize(Roles = ("Admin,Accountant"))]
         public IActionResult LeaveDecide()
         {
             List<LeaveRequest> leaves = _db.LeaveRequests.ToList();
@@ -104,7 +103,7 @@ namespace EmployeeManagement.Controllers
             {
                 return NotFound();
             }
-            var app= _db.LeaveRequests.FirstOrDefault(u=>u.ID == id);
+            var app = _db.LeaveRequests.FirstOrDefault(u => u.ID == id);
             app.FinalDecision = "Approve";
             _db.LeaveRequests.Update(app);
             _db.SaveChanges();
@@ -127,7 +126,7 @@ namespace EmployeeManagement.Controllers
 
 
 
-       
+
 
 
 
