@@ -3,6 +3,7 @@ using EmployeeManagementSystem.Data;
 using EmployeeManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Controllers
 {
@@ -92,7 +93,9 @@ namespace EmployeeManagement.Controllers
         [Authorize(Roles = ("Admin,Accountant"))]
         public IActionResult LeaveDecide()
         {
-            List<LeaveRequest> leaves = _db.LeaveRequests.ToList();
+            var leaves = _db.LeaveRequests.FromSqlRaw("SELECT * FROM get_all_leaves()")
+                        .AsNoTracking()
+                        .ToList();
             return View(leaves);
         }
 

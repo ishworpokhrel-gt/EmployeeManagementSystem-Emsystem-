@@ -26,7 +26,11 @@ namespace WebApplication1.Controllers
 
         public IActionResult Details(int id)
         {
-            var obj = _db.Employeess.FirstOrDefault(a => a.Id == id);
+            var obj = _db.Employeess.FromSqlRaw("SELECT * FROM get_employee_BY_Id({0})",id)
+                                    .AsNoTracking()
+                                    .AsEnumerable()
+                                    .FirstOrDefault();
+            //var obj = _db.Employeess.FirstOrDefault(a => a.Id == id);
             return View(obj);
         }
 
@@ -49,13 +53,19 @@ namespace WebApplication1.Controllers
 
         public IActionResult LeaveTable()
         {
-            List<LeaveRequest> req = _db.LeaveRequests.ToList();
+            // List<LeaveRequest> req = _db.LeaveRequests.ToList();
+            var req = _db.LeaveRequests.FromSqlRaw("SELECT * FROM get_all_leaves()")
+                                    .AsNoTracking()
+                                    .ToList();
             return View(req);
         }
 
         public IActionResult Slip(int id)
         {
-            Employee? emp = _db.Employeess.FirstOrDefault(u => u.Id == id);
+            var emp = _db.Employeess.FromSqlRaw("SELECT * FROM get_employee_BY_Id({0})", id)
+                                    .AsNoTracking()
+                                    .AsEnumerable()
+                                    .FirstOrDefault();
             if (emp == null)
             {
                 return BadRequest();
